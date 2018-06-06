@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".frag_search_order">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/search_bttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="80dp"
+        android:background="@android:color/holo_red_light"
+        android:text="@string/button"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        tools:text="Search" />
+
+    <Spinner
+        android:id="@+id/spinnerFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:layout_marginTop="145dp"
+        android:layout_marginLeft="160dp"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/searchtxtview"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:text="Search By " />
+
+    <EditText
+        android:id="@+id/sub_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:hint="Enter Subject"
+        android:inputType="textPersonName"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/refno_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:hint="Enter RefNo"
+        android:inputType="textPersonName"
+        android:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/spinnerType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/spinnerDept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:visibility="gone" />
+
+
+</FrameLayout>
+

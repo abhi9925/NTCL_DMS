@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".frag_settings">
+
+    <Button
+        android:id="@+id/lgout_bttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="55dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Logout"
+        android:textColorLink="@android:color/holo_red_light"
+        android:textStyle="italic" />
+
+    <ImageButton
+        android:id="@+id/imageButtonAddU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+
+    <TextView
+        android:id="@+id/textViewAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Users"
+        android:layout_marginTop="135dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:id="@+id/textViewPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        android:layout_marginTop="280dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButtonPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="210dp"
+        android:src="@drawable/ic_menu_manage"
+
+        />
+
+
+    <EditText
+        android:id="@+id/oldPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Old Password"
+        android:inputType="textPassword"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:id="@+id/newPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="180dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:visibility="gone"
+
+        />
+
+    <EditText
+        android:id="@+id/cnfPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Comfirm Password"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="240dp"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/changePwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:layout_marginTop="320dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/holo_red_light"
+        android:textColorLink="@android:color/holo_red_light"
+        android:textStyle="italic"
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+
+        />
+
+    <EditText
+        android:id="@+id/editTextDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:hint="Designation"
+        android:inputType="textPersonName"
+        android:visibility="gone"
+        />
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="210dp"
+        android:hint="Username"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="260dp"
+        android:inputType="textPersonName"
+        android:visibility="gone"
+        />
+    <EditText
+        android:id="@+id/editTextemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="310dp"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:visibility="gone"
+        />
+    <EditText
+        android:id="@+id/editTextPhno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="360dp"
+        android:ems="10"
+        android:hint="Phone No"
+        android:inputType="phone"
+        android:visibility="gone"
+        />
+
+    <Spinner
+        android:id="@+id/usersList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        />
+
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="110dp"
+        android:visibility="gone"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+
+        />
+    <Spinner
+        android:id="@+id/deptSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="160dp"
+        android:visibility="gone"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+
+        />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        android:background="@android:color/holo_red_light"
+        android:textColorLink="@android:color/holo_red_light"
+        android:textStyle="italic"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="420dp"
+        android:visibility="gone"
+        />
+
+</FrameLayout>

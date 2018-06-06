@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".frag_settings">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/lgout_bttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="55dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Logout"
+        android:textColorLink="@android:color/holo_red_light"
+        android:textStyle="italic" />
+
+
+
+</FrameLayout>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">NTC DMS</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_upload_order">Upload Order</string>
+    <string name="title_search_order">Search Order</string>
+    <string name="title_settings">Settings</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="HomePageTesting">Home Page</string>
+    <string name="UploadOrderTesting">Upload Order</string>
+    <string name="SearchOrderTesting">Search Orders</string>
+    <string name="SettingsTesting">Settings</string>
+    <string name="button">Search</string>
+    <string name="searchtxtview">Search By</string>
+
+    <string name="select_date">Select Date</string>
+    <string name="letter_no">Letter Number</string>
+    <string name="subject">Subject</string>
+    <string name="select_type">Select Type</string>
+    <string name="select_type_hint">Choose a Type</string>
+    <string-array name="select_type_array">
+        <item>--Select Type--</item>
+        <item>type1</item>
+        <item>type2</item>
+        <item>type3</item>
+        <item>type4</item>
+    </string-array>
+
+    <string name="select_department">Select Department</string>
+    <string name="select_department_hint">Choose a Department</string>
+    <string-array name="select_department_array">
+        <item>--Select Department--</item>
+        <item>dept1</item>
+        <item>dept2</item>
+        <item>dept3</item>
+        <item>dept4</item>
+    </string-array>
+
+    <string name="browse">Browse</string>
+    <string name="upload">Upload</string>
+
+</resources>

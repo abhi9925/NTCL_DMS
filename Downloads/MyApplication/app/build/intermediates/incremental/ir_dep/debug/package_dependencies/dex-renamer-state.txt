@@ -1,0 +1,4 @@
+#Wed Jun 06 12:26:01 IST 2018
+base.0=/Users/manojgarg/Downloads/MyApplication/app/build/intermediates/transforms/dexMerger/debug/95
+path.0=classes.dex
+renamed.0=classes.dex
