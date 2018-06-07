@@ -2,6 +2,7 @@ package com.example.abhishek.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -113,9 +114,11 @@ public class frag_settings_admin extends Fragment {
             }
         });
 
+
+        final ArrayList<String> Users_List= new ArrayList<>();
+        Users_List.add("Select User");
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Login/");
         Query query = reference.orderByChild("username");
-        final ArrayList<String> Users_List= new ArrayList<>();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -134,10 +137,6 @@ public class frag_settings_admin extends Fragment {
 
 
         final Spinner Users = v.findViewById(R.id.usersList);
-        //String[] UserNames = new String[]{"Select UserName","User1", "User2", "User3"};
-        ArrayAdapter<String>adapter_users = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,Users_List);
-        adapter_users.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Users.setAdapter(adapter_users);
 
         final Spinner Types = v.findViewById(R.id.typeSpinner);
         String[] TypesList = new String[]{"Select Type","type1", "Type2", "Type3"};
@@ -163,6 +162,7 @@ public class frag_settings_admin extends Fragment {
             {
 
             }
+
         });
 
         addUsersButton.setOnClickListener(new OnClickListener() {
@@ -198,6 +198,67 @@ public class frag_settings_admin extends Fragment {
                 CP.setVisibility(View.VISIBLE);
                 ta.setVisibility(View.INVISIBLE);
                 tp.setVisibility(View.INVISIBLE);
+                String [] UserNames= new String[Users_List.size()];
+                for (int i=0; i<Users_List.size(); i++) {
+                    UserNames[i] = Users_List.get(i);
+                }
+                final ArrayAdapter<String>adapter_users = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,UserNames);
+                adapter_users.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                Users.setAdapter(adapter_users);
+            }
+        });
+
+        CP.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String op=OldPwd.getText().toString();
+                final String np=NewPwd.getText().toString();
+                String cp=CnfPwd.getText().toString();
+                if (username_password_change.equals("Select User"))
+                    Toast.makeText(getContext(),"Please Select a User",Toast.LENGTH_SHORT).show();
+                else if (op.equals(""))
+                    Toast.makeText(getContext(),"Please Enter Old Password",Toast.LENGTH_SHORT).show();
+                else if (np.equals(""))
+                    Toast.makeText(getContext(),"Please Enter New Password",Toast.LENGTH_SHORT).show();
+                else if (cp.equals(np)) {
+                    Query query = reference.orderByChild("username").equalTo(username_password_change);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot creds: dataSnapshot.getChildren()) {
+                                    String old_key=creds.child("password").getValue().toString();
+                                    if (old_key.equals(op)){
+                                        if (op.equals(np))
+                                            Toast.makeText(getContext(),"New Password matches Old Password",Toast.LENGTH_SHORT).show();
+                                        else {
+                                            //Toast.makeText(getContext(),username_password_change,Toast.LENGTH_SHORT).show();
+                                            //Make Changes to DB
+                                            String cc=creds.getKey().toString();
+                                            DatabaseReference ref=FirebaseDatabase.getInstance().getReference("Login/"+cc+"/password");
+                                            ref.setValue(np);
+                                            Toast.makeText(getContext(),"Password Changed Successfully",Toast.LENGTH_SHORT).show();
+                                            OldPwd.setText("");
+                                            NewPwd.setText("");
+                                            CnfPwd.setText("");
+                                        }
+                                    }
+                                    else
+                                        Toast.makeText(getContext(),"Incorrect Old Password",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            throw databaseError.toException();
+                        }
+                    });
+
+                }
+                else
+                    Toast.makeText(getContext(),"New Password does not match with Confirm Passord",Toast.LENGTH_SHORT).show();
+
 
             }
         });
