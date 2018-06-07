@@ -43,7 +43,7 @@
                          if (key.equals(actual_password))
                          {
                              String Type=creds.child("type").getValue().toString();
-                             Toast.makeText(getBaseContext(), Type, Toast.LENGTH_SHORT).show();
+                             Toast.makeText(getBaseContext(), "Welcome "+creds.child("name").getValue().toString(), Toast.LENGTH_SHORT).show();
 
                              if (Type.equals("User"))
                                 startActivity(UserIntent);
