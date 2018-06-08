@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,15 +46,6 @@ public class frag_settings_admin extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment frag_settings.
-     */
-    // TODO: Rename and change types and number of parameters
     public static frag_settings_admin newInstance(String param1, String param2) {
         frag_settings_admin fragment = new frag_settings_admin();
         Bundle args = new Bundle();
@@ -71,38 +63,152 @@ public class frag_settings_admin extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    String newType;
+    String newDept;
     String username_password_change;
-    public void setUser(String s)
+    private void setUser(String s)
     {
         username_password_change=s;
     }
 
+    Button lo;
+    ImageButton addUsersButton;
+    ImageButton changePwdButton;
+
+    TextView ta;
+    TextView tp;
+
+    EditText OldPwd;
+    EditText NewPwd;
+    EditText CnfPwd;
+    Button CP;
+
+    EditText Name;
+    EditText Des;
+    EditText userName;
+    EditText Password;
+    EditText email;
+    EditText Phno;
+    Button addUserButton;
+
+    Spinner Users;
+    Spinner Types;
+    Spinner Dept;
+
+    private void initialise(View v)
+    {
+        lo=v.findViewById(R.id.lgout_bttn);
+        addUsersButton=v.findViewById(R.id.imageButtonAddU);
+        changePwdButton=v.findViewById(R.id.imageButtonPwd);
+
+        ta=v.findViewById(R.id.textViewAdd);
+        tp=v.findViewById(R.id.textViewPwd);
+        OldPwd=v.findViewById(R.id.oldPwd);
+        NewPwd=v.findViewById(R.id.newPwd);
+        CnfPwd=v.findViewById(R.id.cnfPwd);
+        CP=v.findViewById(R.id.changePwd);
+
+        Name=v.findViewById(R.id.editTextName);
+        Des=v.findViewById(R.id.editTextDes);
+        userName=v.findViewById(R.id.editTextUsername);
+        Password=v.findViewById(R.id.editTextPassword);
+        email=v.findViewById(R.id.editTextemail);
+        Phno=v.findViewById(R.id.editTextPhno);
+        addUserButton=v.findViewById(R.id.add_button);
+
+        Users = v.findViewById(R.id.usersList);
+        Types = v.findViewById(R.id.typeSpinner);
+        Dept = v.findViewById(R.id.deptSpinner);
+
+    }
+
+    private void setAddUserView()
+    {
+        addUsersButton.setVisibility(View.GONE);
+        changePwdButton.setVisibility(View.GONE);
+        ta.setVisibility(View.GONE);
+        tp.setVisibility(View.GONE);
+        Types.setVisibility(View.VISIBLE);
+        Dept.setVisibility(View.VISIBLE);
+        Name.setVisibility(View.VISIBLE);
+        Des.setVisibility(View.VISIBLE);
+        userName.setVisibility(View.VISIBLE);
+        Password.setVisibility(View.VISIBLE);
+        email.setVisibility(View.VISIBLE);
+        Phno.setVisibility(View.VISIBLE);
+        addUserButton.setVisibility(View.VISIBLE);
+        lo.setVisibility(View.GONE);
+    }
+
+    private Person getDetails()
+    {
+        String newUserName=userName.getText().toString();
+        String newPassword=Password.getText().toString();
+        String newName=Name.getText().toString();
+        String newDesignation=Des.getText().toString();
+        String newEmail=email.getText().toString();
+        String newPhno=Phno.getText().toString();
+        Person newPerson= new Person(newName,newDesignation,newType,newDept,newUserName,newPassword,newEmail,newPhno);
+        return newPerson;
+    }
+
+    public void back()
+    {
+        addUsersButton.setVisibility(View.VISIBLE);
+        changePwdButton.setVisibility(View.VISIBLE);
+        ta.setVisibility(View.VISIBLE);
+        tp.setVisibility(View.VISIBLE);
+
+        Types.setVisibility(View.GONE);
+        Dept.setVisibility(View.GONE);
+        Name.setVisibility(View.GONE);
+        Des.setVisibility(View.GONE);
+        userName.setVisibility(View.GONE);
+        Password.setVisibility(View.GONE);
+        email.setVisibility(View.GONE);
+        Phno.setVisibility(View.GONE);
+        addUserButton.setVisibility(View.GONE);
+
+        Users.setVisibility(View.GONE);
+        OldPwd.setVisibility(View.GONE);
+        NewPwd.setVisibility(View.GONE);
+        CnfPwd.setVisibility(View.GONE);
+        CP.setVisibility(View.GONE);
+
+        lo.setVisibility(View.VISIBLE);
+
+    }
+
+    private void setChangePwdButtonView()
+    {
+        addUsersButton.setVisibility(View.GONE);
+        changePwdButton.setVisibility(View.GONE);
+        Users.setVisibility(View.VISIBLE);
+        OldPwd.setVisibility(View.VISIBLE);
+        NewPwd.setVisibility(View.VISIBLE);
+        CnfPwd.setVisibility(View.VISIBLE);
+        CP.setVisibility(View.VISIBLE);
+        ta.setVisibility(View.GONE);
+        tp.setVisibility(View.GONE);
+    }
+
+    private void changePassword(String key, String newPassword)
+    {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference("Login/"+key+"/password");
+        ref.setValue(newPassword);
+        Toast.makeText(getContext(),"Password Changed Successfully",Toast.LENGTH_SHORT).show();
+        OldPwd.setText("");
+        NewPwd.setText("");
+        CnfPwd.setText("");
+        Users.setSelection(0);
+        back();
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_frag_settings_admin, container, false);
-        final Button lo=v.findViewById(R.id.lgout_bttn);
-        final ImageButton addUsersButton=v.findViewById(R.id.imageButtonAddU);
-        final ImageButton changePwdButton=v.findViewById(R.id.imageButtonPwd);
-
-        final TextView ta=v.findViewById(R.id.textViewAdd);
-        final TextView tp=v.findViewById(R.id.textViewPwd);
-
-        final EditText OldPwd=v.findViewById(R.id.oldPwd);
-        final EditText NewPwd=v.findViewById(R.id.newPwd);
-        final EditText CnfPwd=v.findViewById(R.id.cnfPwd);
-        final Button CP=v.findViewById(R.id.changePwd);
-
-        final EditText Name=v.findViewById(R.id.editTextName);
-        final EditText Des=v.findViewById(R.id.editTextDes);
-        final EditText userName=v.findViewById(R.id.editTextUsername);
-        final EditText Password=v.findViewById(R.id.editTextPassword);
-        final EditText email=v.findViewById(R.id.editTextemail);
-        final EditText Phno=v.findViewById(R.id.editTextPhno);
-        final Button addUserButton=v.findViewById(R.id.add_button);
-
+        initialise(v);
 
         lo.setOnClickListener(new OnClickListener() {
 
@@ -136,16 +242,12 @@ public class frag_settings_admin extends Fragment {
         });
 
 
-        final Spinner Users = v.findViewById(R.id.usersList);
-
-        final Spinner Types = v.findViewById(R.id.typeSpinner);
-        String[] TypesList = new String[]{"Select Type","type1", "Type2", "Type3"};
+        final String[] TypesList = new String[]{"Select Type","Super Admin", "Admin", "User"};
         ArrayAdapter<String>adapter_types = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,TypesList);
         adapter_types.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Types.setAdapter(adapter_types);
 
-        final Spinner Dept = v.findViewById(R.id.deptSpinner);
-        String[] DeptList = new String[]{"Select Dept","dept1", "dept2", "dept3"};
+        final String[] DeptList = new String[]{"Select Dept","dept1", "dept2", "dept3"};
         ArrayAdapter<String>adapter_dept = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,DeptList);
         adapter_dept.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Dept.setAdapter(adapter_dept);
@@ -165,39 +267,78 @@ public class frag_settings_admin extends Fragment {
 
         });
 
+        Types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                newType=TypesList[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+
+        });
+        Dept.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                newDept=DeptList[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+
+        });
+
+
         addUsersButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                addUsersButton.setVisibility(View.INVISIBLE);
-                changePwdButton.setVisibility(View.INVISIBLE);
-                ta.setVisibility(View.INVISIBLE);
-                tp.setVisibility(View.INVISIBLE);
-                Types.setVisibility(View.VISIBLE);
-                Dept.setVisibility(View.VISIBLE);
-                Name.setVisibility(View.VISIBLE);
-                Des.setVisibility(View.VISIBLE);
-                userName.setVisibility(View.VISIBLE);
-                Password.setVisibility(View.VISIBLE);
-                email.setVisibility(View.VISIBLE);
-                Phno.setVisibility(View.VISIBLE);
-                addUserButton.setVisibility(View.VISIBLE);
-                lo.setVisibility(View.INVISIBLE);
+                setAddUserView();
             }
         });
 
+        addUserButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Person newUser = getDetails();;
+                if (newUser.getParity()==1)
+                {
+                    Toast.makeText(getContext(),"Please Enter Valid Data",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                DatabaseReference newRef = FirebaseDatabase.getInstance().getReference("Login").push();
+                newRef.child("username").setValue(newUser.getUsername());
+                newRef.child("password").setValue(newUser.getPassword());
+                newRef.child("name").setValue(newUser.getName());
+                newRef.child("type").setValue(newUser.getType());
+                newRef.child("designation").setValue(newUser.getDesignation());
+                newRef.child("department").setValue(newUser.getDepartment());
+                newRef.child("phno").setValue(newUser.getPhNo());
+                newRef.child("email").setValue(newUser.getEmail());
+                Toast.makeText(getContext(),"User added successfully",Toast.LENGTH_SHORT).show();
+                back();
+                userName.setText("");
+                Des.setText("");
+                Name.setText("");
+                Password.setText("");
+                email.setText("");
+                Phno.setText("");
+                Types.setSelection(0);
+                Dept.setSelection(0);
+            }
+        });
 
         changePwdButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                addUsersButton.setVisibility(View.INVISIBLE);
-                changePwdButton.setVisibility(View.INVISIBLE);
-                Users.setVisibility(View.VISIBLE);
-                OldPwd.setVisibility(View.VISIBLE);
-                NewPwd.setVisibility(View.VISIBLE);
-                CnfPwd.setVisibility(View.VISIBLE);
-                CP.setVisibility(View.VISIBLE);
-                ta.setVisibility(View.INVISIBLE);
-                tp.setVisibility(View.INVISIBLE);
+                setChangePwdButtonView();
                 String [] UserNames= new String[Users_List.size()];
                 for (int i=0; i<Users_List.size(); i++) {
                     UserNames[i] = Users_List.get(i);
@@ -213,7 +354,7 @@ public class frag_settings_admin extends Fragment {
             public void onClick(View view) {
                 final String op=OldPwd.getText().toString();
                 final String np=NewPwd.getText().toString();
-                String cp=CnfPwd.getText().toString();
+                final String cp=CnfPwd.getText().toString();
                 if (username_password_change.equals("Select User"))
                     Toast.makeText(getContext(),"Please Select a User",Toast.LENGTH_SHORT).show();
                 else if (op.equals(""))
@@ -232,15 +373,9 @@ public class frag_settings_admin extends Fragment {
                                         if (op.equals(np))
                                             Toast.makeText(getContext(),"New Password matches Old Password",Toast.LENGTH_SHORT).show();
                                         else {
-                                            //Toast.makeText(getContext(),username_password_change,Toast.LENGTH_SHORT).show();
                                             //Make Changes to DB
-                                            String cc=creds.getKey().toString();
-                                            DatabaseReference ref=FirebaseDatabase.getInstance().getReference("Login/"+cc+"/password");
-                                            ref.setValue(np);
-                                            Toast.makeText(getContext(),"Password Changed Successfully",Toast.LENGTH_SHORT).show();
-                                            OldPwd.setText("");
-                                            NewPwd.setText("");
-                                            CnfPwd.setText("");
+                                            String credentials_key=creds.getKey().toString();
+                                            changePassword(credentials_key,np);
                                         }
                                     }
                                     else
@@ -257,7 +392,7 @@ public class frag_settings_admin extends Fragment {
 
                 }
                 else
-                    Toast.makeText(getContext(),"New Password does not match with Confirm Passord",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"New Password does not match with Confirm Password",Toast.LENGTH_SHORT).show();
 
 
             }
