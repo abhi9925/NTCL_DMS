@@ -1,37 +1,62 @@
 package com.example.abhishek.myapplication;
 
+
 public class Person {
-    String Name,Designation,Type,Department,Username,Password,email,PhNo;
-    public void setName(String PersonName)
+
+    private String Name,Designation,Type,Department,Username,Password,email, PhNo;
+    private int parity;
+
+    public Person(String Name,String Designation,String Type,String Department,String Username,String Password,String email, String PhNo)
     {
-        Name=PersonName;
+        if (Name.equals("") || Designation.equals("") || Type.equals("Select Type") || Department.equals("Select Dept") || Username.equals("") || Password.equals("") || email.equals("") || PhNo.equals("")) {
+            this.parity=1;
+            return;
+        }
+        this.parity=0;
+        this.Name=Name;
+        this.Designation=Designation;
+        this.Department=Department;
+        this.Type=Type;
+        this.Username=Username;
+        this.Password=Password;
+        this.email=email;
+        this.PhNo=PhNo;
     }
-    public void setDesignation(String PersonDesignation)
+    public String getName()
     {
-        Designation=PersonDesignation;
+        return Name;
     }
-    public void setType(String PersonType)
+    public String getDesignation()
     {
-        Type=PersonType;
+        return Designation;
     }
-    public void setDepartment(String PersonDepartment)
+    public String getType()
     {
-        Department=PersonDepartment;
+        return Type;
     }
-    public void setUsername(String PersonUsername)
+    public String getDepartment()
     {
-        Username=PersonUsername;
+        return Department;
     }
-    public void setPassword(String PersonPassword)
+    public String getUsername()
     {
-        Password=PersonPassword;
+        return Username;
     }
-    public void setEmail(String PersonEmail)
+    public String getPassword()
     {
-        email=PersonEmail;
+        return Password;
     }
-    public void setPhNo(String PersonPhNo)
+    public String getEmail()
     {
-        PhNo=PersonPhNo;
+        return email;
     }
+    public String getPhNo()
+    {
+        return PhNo;
+    }
+    public int getParity()
+    {
+        return  parity;
+    }
+
 }
